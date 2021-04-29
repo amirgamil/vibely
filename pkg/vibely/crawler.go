@@ -2,6 +2,7 @@ package vibely
 
 import (
 	"log"
+	"regexp"
 
 	"github.com/anaskhan96/soup"
 )
@@ -12,7 +13,10 @@ func crawlGetSong(url string) string {
 		log.Printf("Error trying to crawl the song")
 	}
 	doc := soup.HTMLParse(resp)
-	links := doc.Find("div", "class", "lyrics").FindAll("a", "p")
+	songUnformatted := doc.Find("div", "class", "lyrics").FullText()
 
-	return ""
+	r, _ := regexp.Compile("[\\(\\[].*?[\\)\\]]")
+	songFormatted := r.ReplaceAllString(songUnformatted, "")
+
+	return songFormatted
 }
