@@ -31,8 +31,7 @@ class App extends Component {
             fetch("/searchSongs"+this.inputValue)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                this.songResults = data.items.map((element, index) => element.album.name);
+                this.songResults = data.response.sections[0].hits.map((element, index) => element.result.full_title);
             }).catch(exception => {
                 console.log("Exception parsing JSON data from backend " + exception)
             });
