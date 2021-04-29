@@ -4,12 +4,13 @@ body {
     font-family: 'Inter', system-ui, sans-serif;
     font-size: 18px;
 
-    --fg: #222;
-    --bg: #fafafa;
+    --fg: #000;
+    --bg: #deb3ee;
 
     background: var(--bg);
     color: var(--fg);
     min-height: 100vh;
+    font-family: 'Inconsolata', monospace;
 }
 
 body.dark {
@@ -24,20 +25,13 @@ header,
     align-items: center;
 }
 
-.header-left {
-    flex-grow: 1;
+h1, span {
+    font-weight: 700;
 }
 
-button {
-    font-family: 'Inter', system-ui, sans-serif;
-    border: 0;
-    outline: 0;
-    background-color: var(--bg);
-    color: var(--fg);
-    outline: none;
-    padding: 0.5em 0.5em;
-    opacity: 0.4;
-    text-decoration: none;
+
+p {
+    font-size: 1.5em;
 }
 
 .app {
@@ -45,104 +39,47 @@ button {
     padding: 2em 0;
     margin: 0 auto;
     width: calc(100% - 2em);
-    
 }
 
-.button-bar {
+.center-div {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.toggle,
-.close,
-textarea {
-    font-size: 1em;
-}
-
-
-button:hover, a:hover {
-   opacity: 1;
-}
-
-
-button.add {
-    font-size: 2em;
-}
-
-footer, p.sub {
-    opacity: .6;
-    font-size: .8em;
-}
-
-.block {
     width: 100%;
-}
-
-
-.block-heading {
-    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
+.input-div {
+    width: calc(100% - 2em);
+}
 
 
-input,
-textarea,
-.p-heights {
+input {
+    border: 0;
+    width: 100%;
     box-sizing: border-box;
-    border: none;
-    width: 100%;
-    color: var(--fg);
-    min-height: 2em;
-    line-height: 1.5em;
-    margin: 0;
-    background: transparent;
+    padding: 10px 8px;
+    font-family: 'Inconsolata', monospace;
+    font-size: 1em;
     outline: none;
-    font-family: 'Inter';
-    word-wrap: break-word;
-    white-space: pre-wrap;
 }
 
-.tags, .block-heading input {
-    font-weight: 700;
-}
-
-.tags {
-    font-size: .9em;
-    opacity: .6;
-}
-
-textarea {
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    overflow: hidden;
-    resize: none;
-    position: absolute;
-}
-
-.title {
-    font-size: 1.2em;
-    font-weight: bold;
-}
-
-
-.block-body {
+.autoCompleteDropDown {
+    z-index: 2;
+    width: 100%;
     display: flex;
-    position: relative;
+    flex-direction: column;
+    border: 2px solid black;
 }
 
-.p-heights {
-    visibility: hidden;
+.dropdownElement {
+    background-color: white;
+    color: black;
+    border-bottom: 0.5px solid black;
+    font-weight: 300 !important;
+    padding: 10px 5px;
+    cursor: pointer;
 }
 
-.p-heights.endline {
-    padding-bottom: 1.5em;
-}
-
-a {
-    text-decoration: underline;
-    color: var(--fg);
+.dropdownElement:hover {
+    background-color: #e7e7e5;
 }
