@@ -42,7 +42,7 @@ func search(w http.ResponseWriter, r *http.Request) {
 func getSong(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	query := vars["path"]
-	url := baseUrl + query
+	url := baseUrl + "/" + query
 	res := crawlGetSong(url)
 	fmt.Println(res)
 }

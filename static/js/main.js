@@ -46,7 +46,8 @@ class App extends Component {
     generateLyrics(element) {
         this.songResults = [];
         this.loadSong = true;
-        fetch("/getSong" + element.path)
+        console.log("hello");
+        fetch("/getSong" + element.path.substring(1))
         this.render()
     }
 
