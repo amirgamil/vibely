@@ -9,8 +9,9 @@ class App extends Component {
     init() {
         
         this.searched = false;
+        this.loadSong = false;
         this.inputValue = "";
-        this.songResults = ["a", "b", "c"];
+        this.songResults = [];
 
 
         this.handleSearch = this.handleSearch.bind(this);
@@ -31,7 +32,8 @@ class App extends Component {
             fetch("/searchSongs"+this.inputValue)
             .then(res => res.json())
             .then(data => {
-                this.songResults = data.response.sections[0].hits.map((element, index) => element.result.full_title);
+                const hits = data.response.sections[0].hits
+                this.songResults = hits.map((element, index) => ({title: element.result.full_title, path: element.result.path}));
             }).catch(exception => {
                 console.log("Exception parsing JSON data from backend " + exception)
             });
@@ -41,8 +43,10 @@ class App extends Component {
     }
 
 
-    generateLyrics(evt) {
+    generateLyrics(element) {
         this.songResults = [];
+        this.loadSong = true;
+        fetch("/getSong" + element.path)
         this.render()
     }
 
@@ -54,6 +58,8 @@ class App extends Component {
                     <h1 class="block">🎤 Vibely</h1>
                     <p>You ever just wanna vibe but you <span>don't know the lyrics of a song</span>. Like you're going to a concert (before the pandemic) or 
                     it's karaoke or even if you're jamming by yourself. But you don't know the lyrics... </p>
+                    <br/>
+                    <p>Vibely is the <span>fastest way</span> to learn lyrics and get you to vibe town as quickly as possible</p>
                 </div>
             </header>
             <div class="center-div">
@@ -62,7 +68,7 @@ class App extends Component {
                     ${this.searched ? jdom`
                     <div class="autoCompleteDropDown">
                         ${this.songResults.map((element, id) => {
-                            return jdom`<div class="dropdownElement" onclick=${this.generateLyrics}>${element}</div>`
+                            return jdom`<div class="dropdownElement" onclick=${(evt) => this.generateLyrics(element)}>${element.title}</div>`
                         })}
                     </div>
             

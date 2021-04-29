@@ -1,7 +1,8 @@
-package main
+package vibely
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -14,12 +15,12 @@ import (
 	"github.com/joho/godotenv"
 )
 
-const baseUrl = "https://genius.com/api/search/"
+const baseUrl = "https://genius.com"
 
 func search(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	query := vars["value"]
-	url := baseUrl + "song?q=" + url.QueryEscape(query)
+	url := baseUrl + "/api/search/song?q=" + url.QueryEscape(query)
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Println("Error searching for songs on Genius, ", err)
@@ -38,6 +39,14 @@ func search(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(data)
 }
 
+func getSong(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	query := vars["path"]
+	url := baseUrl + query
+	res := crawlGetSong(url)
+	fmt.Println(res)
+}
+
 func index(w http.ResponseWriter, r *http.Request) {
 	indexFile, err := os.Open("./static/index.html")
 	if err != nil {
@@ -49,7 +58,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	io.Copy(w, indexFile)
 }
 
-func main() {
+func Start() {
 	//create data.json if it doesn't exit
 	// ensureDataExists()
 
@@ -64,6 +73,7 @@ func main() {
 
 	r.HandleFunc("/", index)
 	r.Methods("GET").Path("/searchSongs{value}").HandlerFunc(search)
+	r.Methods("GET").Path("/getSong{path}").HandlerFunc(getSong)
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 	log.Printf("Server listening on %s\n", srv.Addr)
 	log.Fatal(srv.ListenAndServe())
