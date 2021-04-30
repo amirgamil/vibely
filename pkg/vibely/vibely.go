@@ -2,7 +2,6 @@ package vibely
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -39,12 +38,15 @@ func search(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(data)
 }
 
-func getSong(w http.ResponseWriter, r *http.Request) {
+func returnScrambled(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	query := vars["path"]
 	url := baseUrl + "/" + query
 	res := crawlGetSong(url)
-	fmt.Println(res)
+	jsonScrambled := scramble(res)
+	w.Header().Add("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(jsonScrambled)
+
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -73,7 +75,7 @@ func Start() {
 
 	r.HandleFunc("/", index)
 	r.Methods("GET").Path("/searchSongs{value}").HandlerFunc(search)
-	r.Methods("GET").Path("/getSong{path}").HandlerFunc(getSong)
+	r.Methods("GET").Path("/scramble{path}").HandlerFunc(returnScrambled)
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 	log.Printf("Server listening on %s\n", srv.Addr)
 	log.Fatal(srv.ListenAndServe())

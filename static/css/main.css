@@ -25,12 +25,28 @@ header,
     align-items: center;
 }
 
-h1, span {
+h1, .highlight {
     font-weight: 700;
 }
 
-span {
+.highlight {
     text-decoration: underline;
+}
+
+#lyrics {
+    white-space: pre-wrap !important;
+    width: 100%;
+    padding: 20px 5px 5px 20px;
+    font-size: 1.2em;
+}
+
+.hidden {
+    background-color: black;
+    color: black;
+}
+
+.hidden:hover {
+    background-color: white;
 }
 
 
@@ -45,7 +61,15 @@ p {
     width: calc(100% - 2em);
 }
 
-.center-div {
+
+.row-div {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    border: none;
+}
+
+.column-div {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -56,13 +80,15 @@ p {
     width: calc(100% - 2em);
 }
 
+input, button {
+    font-family: 'Inconsolata', monospace;
+}
 
 input {
     border: 0;
     width: 100%;
     box-sizing: border-box;
     padding: 10px 8px;
-    font-family: 'Inconsolata', monospace;
     font-size: 1em;
     outline: none;
 }
@@ -72,7 +98,9 @@ input {
     width: 100%;
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+    border-color: black;
+    border-style: solid;
+    border-width: 0 0.7px 0.7px 0.7px;
 }
 
 .dropdownElement {
@@ -95,9 +123,14 @@ footer {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: underline;
 }
 
-a:hover {
-    color: white;
+a:visited {
+    color: black;
+}
+
+button {
+    font-size: 1.5em;
+    height: 43px;
 }
