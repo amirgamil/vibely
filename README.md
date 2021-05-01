@@ -12,4 +12,4 @@ To run this locally, run `go run cmd/main.go` and navigate to the `127.0.0.1:899
 
 
 ## API
-Vibely takes advantage of the "public" Genius API to search for songs. It then uses a [Go implementation of beautiful soup](github.com/anaskhan96/soup) to get the lyrics of the song and display it on the page
+Vibely takes advantage of the "public" Genius API to search for songs. It then uses a [Go implementation of beautiful soup](https://github.com/anaskhan96/soup) to get the lyrics of the song and display it on the page
