@@ -43,7 +43,7 @@ class App extends Component {
 
         this.render();
     }
-    
+
     async generateLyrics(title, path) {
         this.songResults = [];
         this.loadSong = true;
@@ -111,8 +111,9 @@ class App extends Component {
                 <p>
                     Built with love by
                     <a href = "https://amirbolous.com">
-                        Amir
-                    </a>
+                        Amir</a> open sourced 
+                    <a href = "https://github.com/amirgamil/vibely">
+                        here</a>
                 </p>
             </footer>
        </main>`;
