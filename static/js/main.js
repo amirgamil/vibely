@@ -109,11 +109,7 @@ class App extends Component {
                 
             <footer>
                 <p>
-                    Built with love by
-                    <a href = "https://amirbolous.com">
-                        Amir</a> open sourced 
-                    <a href = "https://github.com/amirgamil/vibely">
-                        here</a>
+                    Built with love by <a title="Visit the blog of Amir Bolous" href = "https://amirbolous.com">Amir</a> and is avaliable <a href = "https://github.com/amirgamil/vibely" title="View the GitHub repository for Vibely">open source</a>
                 </p>
             </footer>
        </main>`;
