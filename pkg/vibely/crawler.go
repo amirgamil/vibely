@@ -31,11 +31,15 @@ func crawlGetSong(url string) string {
 		fmt.Println("ERROR CREATING DOCUMENT! ", err)
 		songFormatted = "Error getting the song lyrics"
 	}
-	result := document.Find(".Lyrics__Container-sc-1ynbvzw-6")
-	// for i := range result.Nodes {
-	// 	className, _ := result.Eq(i).Attr("class")
-	// 	fmt.Println(className)
-	// }
+	result := document.Find("div")
+	for i := range result.Nodes {
+		className, _ := result.Eq(i).Attr("class")
+		//selector for div included a hashed suffix which regularly changes so this ensures we always capture the lyrics
+		if strings.HasPrefix(className, "Lyrics__Container") {
+			result = result.Eq(i)
+			break
+		}
+	}
 	songFormatted = strings.TrimSpace(goquery_helpers.RenderSelection(result, "\n"))
 	r, _ := regexp.Compile("[\\(\\[].*?[\\)\\]]")
 	songFormatted = r.ReplaceAllString(songFormatted, "")
